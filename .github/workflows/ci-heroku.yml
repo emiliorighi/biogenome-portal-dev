@@ -33,5 +33,5 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{matrix.label}}
           heroku_email: ${{secrets.USER_EMAIL}}
-          appdir: ${{matrix.path}}
+          appdir: ${{matrix.image}}
           usedocker: true
