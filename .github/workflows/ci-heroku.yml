@@ -1,0 +1,37 @@
+
+name: ci
+
+on:
+  push:
+    branches:
+      - 'production'
+      
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: ./client/Dockerfile
+            label: portal-front
+            path: /client
+            image: client
+            version: latest
+          - dockerfile: ./server/Dockerfile
+            label: portal-back
+            image: server
+            version: latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "sample-submission" #Must be unique in Heroku
+          heroku_email: ${{secrets.USER_EMAIL}}
+          appdir: ${{matrix.path}}
+          usedocker: true
