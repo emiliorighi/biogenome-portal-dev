@@ -14,12 +14,12 @@ jobs:
       matrix:
         include:
           - dockerfile: ./client/Dockerfile
-            label: portal-front
+            label: biogenome-front
             path: /client
             image: client
             version: latest
           - dockerfile: ./server/Dockerfile
-            label: portal-back
+            label: biogenome-back
             image: server
             version: latest
     permissions:
